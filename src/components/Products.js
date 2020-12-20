@@ -2,6 +2,32 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import formatCurrency from "../util";
 
+export default class Products extends Component {
+  render() {
+    return (
+      <div>
+        <Product>
+          {this.props.products.map((product) => (
+            <Li key={product._id}>
+              <DivProduct>
+                <Link href={"#" + product._id}>
+                  <Image src={product.image} alt={product.title}></Image>
+                  <p>{product.title}</p>
+                </Link>
+                <ProductPrice>
+                  <div>{formatCurrency(product.price)}</div>
+                  <Button onClick={() => this.props.addToCart(product)}>
+                    Add to cart
+                  </Button>
+                </ProductPrice>
+              </DivProduct>
+            </Li>
+          ))}
+        </Product>
+      </div>
+    );
+  }
+}
 const Product = styled.ul`
   display: flex;
   flex-wrap: wrap;
@@ -46,27 +72,3 @@ const Button = styled.button`
 const Link = styled.a`
   text-decoration: none;
 `;
-export default class Products extends Component {
-  render() {
-    return (
-      <div>
-        <Product>
-          {this.props.products.map((product) => (
-            <Li key={product._id}>
-              <DivProduct>
-                <Link href={"#" + product._id}>
-                  <Image src={product.image} alt={product.title}></Image>
-                  <p>{product.title}</p>
-                </Link>
-                <ProductPrice>
-                  <div>{formatCurrency(product.price)}</div>
-                  <Button>Add to cart</Button>
-                </ProductPrice>
-              </DivProduct>
-            </Li>
-          ))}
-        </Product>
-      </div>
-    );
-  }
-}
