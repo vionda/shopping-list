@@ -82,8 +82,8 @@ export default class Cart extends Component {
               </Total>
               {this.state.showCheckout && (
                 <div className="cart">
-                  <form onSubmit={this.createOrder}>
-                    <ul className="form-container">
+                  <Form onSubmit={this.createOrder}>
+                    <FormContainer>
                       <li>
                         <label>Email</label>
                         <input
@@ -112,12 +112,15 @@ export default class Cart extends Component {
                         ></input>
                       </li>
                       <li>
-                        <button className="button primary" type="submit">
+                        <CheckoutButton
+                          className="button primary"
+                          type="submit"
+                        >
                           Checkout
-                        </button>
+                        </CheckoutButton>
                       </li>
-                    </ul>
-                  </form>
+                    </FormContainer>
+                  </Form>
                 </div>
               )}
             </div>
@@ -173,5 +176,31 @@ const Total = styled.div`
   & div {
     flex: 1;
     font-size: 2rem;
+  }
+`;
+const Form = styled.form`
+  width: 100%;
+`;
+const FormContainer = styled.ul`
+  width: 100%;
+  padding: 0;
+  list-style-type: none !important;
+  li {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+  }
+  input {
+    padding: 1rem;
+    border: 0.1rem #c0c0c0 solid;
+  }
+`;
+const CheckoutButton = styled.button`
+  padding: 1rem;
+  border: 0.1rem #c0c0c0 solid;
+  background-color: #f0c040;
+  cursor: pointer;
+  :hover {
+    border: 0.1rem #808080 solid;
   }
 `;
