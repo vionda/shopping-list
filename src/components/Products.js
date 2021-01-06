@@ -1,29 +1,88 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import formatCurrency from "../util";
+import Fade from "react-reveal/Fade";
+import Modal from "react-modal";
+import Zoom from "react-reveal/Zoom";
 
 export default class Products extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      products: null,
+    };
+  }
+  openModal = (product) => {
+    this.setState({ product });
+  };
+  closeModal = () => {
+    this.setState({ product: null });
+  };
   render() {
+    const { product } = this.state;
     return (
       <div>
-        <Product>
-          {this.props.products.map((product) => (
-            <Li key={product._id}>
-              <DivProduct>
-                <Link href={"#" + product._id}>
-                  <Image src={product.image} alt={product.title}></Image>
-                  <p>{product.title}</p>
-                </Link>
-                <ProductPrice>
-                  <div>{formatCurrency(product.price)}</div>
-                  <Button onClick={() => this.props.addToCart(product)}>
-                    Add to cart
-                  </Button>
-                </ProductPrice>
-              </DivProduct>
-            </Li>
-          ))}
-        </Product>
+        <Fade bottom cascade>
+          <Product>
+            {this.props.products.map((product) => (
+              <Li key={product._id}>
+                <DivProduct>
+                  <Link
+                    href={"#" + product._id}
+                    onClick={() => this.openModal(product)}
+                  >
+                    <Image src={product.image} alt={product.title}></Image>
+                    <p>{product.title}</p>
+                  </Link>
+                  <ProductPrice>
+                    <div>{formatCurrency(product.price)}</div>
+                    <Button onClick={() => this.props.addToCart(product)}>
+                      Add to cart
+                    </Button>
+                  </ProductPrice>
+                </DivProduct>
+              </Li>
+            ))}
+          </Product>
+        </Fade>
+        {product && (
+          <Modal isOpen={true} onRequestClose={this.closeModal}>
+            <Zoom>
+              <button onClick={this.closeModal}>x</button>
+              <ProductDetails>
+                <img src={product.image} alt={product.title}></img>
+                <ProductDetailsDescription>
+                  <p>
+                    <strong>{product.title}</strong>
+                  </p>
+                  <p>{product.description}</p>
+                  <p>
+                    Available sizes:{" "}
+                    {product.availableSizes.map((x) => (
+                      <span>
+                        {" "}
+                        <button className="button">{x}</button>
+                      </span>
+                    ))}
+                  </p>
+                  <div className="product-price">
+                    <div>{formatCurrency(product.price)}</div>
+                    <Button
+                      className="button primary"
+                      onClick={() => {
+                        this.props.addToCart(product);
+                        this.closeModal();
+                      }}
+                    >
+                      {" "}
+                      Add To Cart
+                    </Button>
+                  </div>
+                </ProductDetailsDescription>
+              </ProductDetails>
+            </Zoom>
+          </Modal>
+        )}
       </div>
     );
   }
@@ -71,4 +130,19 @@ const Button = styled.button`
 `;
 const Link = styled.a`
   text-decoration: none;
+`;
+const ProductDetails = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-height: 96vh;
+  img {
+    max-height: 100vh;
+    max-width: 46rem;
+    margin: 0 auto;
+  }
+`;
+const ProductDetailsDescription = styled.div`
+  flex: 1 1;
+  margin: 1rem;
 `;
