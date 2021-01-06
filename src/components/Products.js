@@ -1,29 +1,32 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import formatCurrency from "../util";
+import Fade from "react-reveal/Fade";
 
 export default class Products extends Component {
   render() {
     return (
       <div>
-        <Product>
-          {this.props.products.map((product) => (
-            <Li key={product._id}>
-              <DivProduct>
-                <Link href={"#" + product._id}>
-                  <Image src={product.image} alt={product.title}></Image>
-                  <p>{product.title}</p>
-                </Link>
-                <ProductPrice>
-                  <div>{formatCurrency(product.price)}</div>
-                  <Button onClick={() => this.props.addToCart(product)}>
-                    Add to cart
-                  </Button>
-                </ProductPrice>
-              </DivProduct>
-            </Li>
-          ))}
-        </Product>
+        <Fade bottom cascade>
+          <Product>
+            {this.props.products.map((product) => (
+              <Li key={product._id}>
+                <DivProduct>
+                  <Link href={"#" + product._id}>
+                    <Image src={product.image} alt={product.title}></Image>
+                    <p>{product.title}</p>
+                  </Link>
+                  <ProductPrice>
+                    <div>{formatCurrency(product.price)}</div>
+                    <Button onClick={() => this.props.addToCart(product)}>
+                      Add to cart
+                    </Button>
+                  </ProductPrice>
+                </DivProduct>
+              </Li>
+            ))}
+          </Product>
+        </Fade>
       </div>
     );
   }
