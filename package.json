@@ -1,5 +1,6 @@
 {
   "name": "shopping-cart",
+  "proxy": "http://localhost:5001",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -8,14 +9,21 @@
     "@testing-library/user-event": "^12.6.0",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
+    "framer": "^1.2.12",
+    "http2": "^3.3.7",
+    "moment": "2.24.0",
     "mongoose": "^5.11.10",
     "nodemon": "^2.0.7",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-modal": "^3.12.1",
+    "react-redux": "^7.2.2",
     "react-reveal": "^1.2.2",
     "react-scripts": "4.0.1",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
     "shortid": "^2.2.16",
+    "spdy-transport": "^3.0.0",
     "styled-components": "^5.2.1",
     "web-vitals": "^0.2.4"
   },
