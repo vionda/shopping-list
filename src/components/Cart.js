@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import formatCurrency from "../util";
 import Fade from "react-reveal/Fade";
+import { connect } from "react-redux";
+import { removeFromCart } from "../actions/cartActions";
 
-export default class Cart extends Component {
+class Cart extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -209,3 +211,9 @@ const CheckoutButton = styled.button`
     border: 0.1rem #808080 solid;
   }
 `;
+export default connect(
+  (state) => ({
+    cartItems: state.cart.cartItems,
+  }),
+  { removeFromCart }
+)(Cart);
