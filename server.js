@@ -50,5 +50,5 @@ app.delete("/api/products/:id", async (req, res) => {
   res.send(deletedProduct);
 });
 
-const port = process.env.PORT || 5001;
-app.listen(port, () => console.log("serve at http://localhost:5001"));
+const port = process.env.PORT || 5002;
+app.listen(port, () => console.log("serve at http://localhost:5002"));
